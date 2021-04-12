@@ -1,0 +1,8 @@
+# Dependencies
+node_modules
+
+# ENV files
+
+
+# Editor files
+.DS_Store
