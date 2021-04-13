@@ -2,7 +2,7 @@
 node_modules
 
 # ENV files
-
+.env
 
 # Editor files
 .DS_Store

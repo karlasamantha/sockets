@@ -3,7 +3,7 @@ const path = require('path')
 const express = require('express')
 const socketIO = require('socket.io')
 const needle = require('needle')
-const config = require('dotenv').config
+const config = require('dotenv').config()
 
 const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN
 const PORT = process.env.PORT || 3000
@@ -20,7 +20,9 @@ app.get('/', (req, res) => {
 
 // Base URLS for application
 const rulesURL = 'https://api.twitter.com/2/tweets/search/stream/rules'
-const streamURL = 'https://api.twitter.com/2/tweets/search/stream?tweets.fields=public_metric&expansions=author_id'
+const streamURL = `
+  https://api.twitter.com/2/tweets/search/stream?tweet.fields=public_metrics&expansions=author_id
+`
 
 // Set of twitter rules
 const rules = [{ values: 'flamengo' }]
@@ -87,7 +89,7 @@ function streamTweets(socket) {
 
   stream.on('data', (data) => {
     try {
-      const json = JSON.parse(data)
+      const json = JSON.stringify(data)
       socket.emit('tweet', json)
     } catch (error) {
       console.error(error)
